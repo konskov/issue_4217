@@ -385,6 +385,7 @@ scheduled_ts_bgw_job_start(ScheduledBgwJob *sjob,
 {
 	pid_t pid;
 	BgwHandleStatus status;
+	elog(LOG, "in %s", __func__);
 
 	scheduled_bgw_job_transition_state_to(sjob, JOB_STATE_STARTED);
 
@@ -438,6 +439,8 @@ terminate_and_cleanup_job(ScheduledBgwJob *sjob)
 List *
 ts_update_scheduled_jobs_list(List *cur_jobs_list, MemoryContext mctx)
 {
+	elog(DEBUG1, "In %s", __func__);
+	elog(NOTICE, "In %s", __func__);
 	List *new_jobs = ts_bgw_job_get_scheduled(sizeof(ScheduledBgwJob), mctx);
 	ListCell *new_ptr = list_head(new_jobs);
 	ListCell *cur_ptr = list_head(cur_jobs_list);
